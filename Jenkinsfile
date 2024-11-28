@@ -1,11 +1,17 @@
 pipeline {
     agent any
+
+    tools {
+        maven 'Maven 3.8.5' // Use the Maven version configured in Jenkins
+    }
+
     stages {
         stage('Checkout Code') {
             steps {
                 checkout scm
             }
         }
+
         stage('Build') {
             steps {
                 script {
@@ -17,6 +23,7 @@ pipeline {
                 }
             }
         }
+
         stage('Test') {
             steps {
                 script {
@@ -28,12 +35,14 @@ pipeline {
                 }
             }
         }
+
         stage('Package') {
             steps {
                 echo 'Packaging the application...'
             }
         }
     }
+
     post {
         always {
             cleanWs()
